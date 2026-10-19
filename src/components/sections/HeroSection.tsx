@@ -15,12 +15,28 @@ interface HeroTypes {
     target: string;
     } | null;
 
-    hero_link_two: {
+  hero_link_two: {
     title: string;
     url: string;
     target: string;
+  } | null;
+
+  hero_counter: {
+    count_number: number;
+    counter_title_prefix: string;
+    counter_title: string;
+  }[];
+   
+
+  hero_image: {
+    url: string;
+    alt: string;
+    sizes: {
+      hero_image : string;
     } | null;
-    
+  } | null;
+
+ 
 }
 
 function HeroSection(){
@@ -36,6 +52,8 @@ const {
   hero_content,
   hero_link_one,
   hero_link_two,
+  hero_counter,
+  hero_image,
 } = (data.acf ?? {}) as unknown as HeroTypes;
 
 
@@ -57,29 +75,26 @@ const {
                 {hero_link_one && <Button  link={getInternalPath(hero_link_one.url)} target={hero_link_one.target ? hero_link_one.target : "_self"} >{hero_link_one.title} </Button>}
                 {hero_link_two && <Button  buttonClass="trp" link={getInternalPath(hero_link_two.url)} target={hero_link_two.target ? hero_link_two.target : "_self"} >{hero_link_two.title} </Button>}
               </div>
-              <div className="counter-box">
-                <div className="counter-card">
-                  <strong className="count-number">
-                    <span className="counter">150</span>
-                    +                          </strong>
-                  <p>Webshops live</p>
-                </div>
-                <div className="counter-card">
-                  <strong className="count-number">
-                    <span className="counter">10</span>
-                    +                          </strong>
-                  <p>Jaar ervaring</p>
-                </div>
-                <div className="counter-card">
-                  <strong className="count-number">
-                    <span className="counter">98</span>
-                    %                          </strong>
-                  <p>Tevreden klanten</p>
-                </div>
-              </div>
+              
+              {hero_counter && <div className="counter-box">
+                {hero_counter?.map((counter, index) => (
+                  <div className="counter-card" key={`count-${index}`}>
+                    <strong className="count-number">
+                      <span className="counter">{counter.count_number}</span>
+                      {counter.counter_title_prefix}
+                    </strong>
+
+                    <p>{counter.counter_title}</p>
+                  </div>
+                ))}
+                                
+                
+              </div>}
             </div>
             <div className="right_part">
-              <img width={547} height={520} src="http://localhost/wordpresswebshop/wp-content/uploads/2026/10/hero-img1.jpg" className="attachment-hero-image size-hero-image" alt="" loading="lazy" decoding="async" srcSet="http://localhost/wordpresswebshop/wp-content/uploads/2026/10/hero-img1.jpg 547w, http://localhost/wordpresswebshop/wp-content/uploads/2026/10/hero-img1-300x285.jpg 300w" sizes="auto, (max-width: 547px) 100vw, 547px" />                     
+
+              {hero_image && <img src={hero_image.sizes?.hero_image} alt={hero_image.alt? hero_image.alt : "image"} />}
+
             </div>
           </div>
         </div>
