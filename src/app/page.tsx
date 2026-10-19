@@ -1,22 +1,13 @@
-import Header from "@/components/layout/Header";
-import { getPosts } from "@/lib/wordpress";
-import { getSiteOptions } from "@/lib/options";
-import HeroSection from "@/components/ui/HeroSection";
+import AboutSection from "@/components/sections/AboutSection";
+import ProjectsSection from "@/components/sections/ProjectsSection";
+import ServicesSection from "@/components/sections/ServicesSection";
+import HeroSection from "@/components/sections/HeroSection";
 
-export default async function HomePage() {
-  const [posts, options] = await Promise.all([
-    getPosts(),
-    getSiteOptions(),
-  ]);
-
-  return (
-    <>
-      <Header options={options} />
-
-      <main>
-        <HeroSection />
-        
-      </main>
-    </>
-  );
+export default function HomePage(){
+ return <>
+    <HeroSection />
+    <AboutSection />
+    <ServicesSection />
+    <ProjectsSection />
+</>
 }
