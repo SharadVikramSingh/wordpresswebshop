@@ -1,9 +1,10 @@
 
 "use client";
 import { useHomePage } from "@/hooks/useHomePage";
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 
-import {getInternalPath} from "../../../helper/helperFunction"
+import {getInternalPath} from "../../../../helper/helperFunction"
+
 
 interface HeroTypes {
   hero_subtitle: string;
@@ -39,6 +40,8 @@ interface HeroTypes {
  
 }
 
+
+
 function HeroSection(){
  const { data, isPending, isError } = useHomePage();
 
@@ -60,13 +63,13 @@ const {
 
 
     return (
-      <section className="banner_sec mb-120 123">
+      <section className="banner_sec mb-120">
         <div className="wrapper">
           <div className="inner_part">
             <div className="left_part">
               <div className="text-box">
 
-                {hero_subtitle && <div className="sub-title"><img src="http://localhost/wordpresswebshop/wp-content/uploads/2026/10/wordpress-logo.svg" alt="wordpress-logo" />{hero_subtitle}</div>}
+                {hero_subtitle && <div className="sub-title"><img src="/wordpress-logo.svg" alt="wordpress-logo" />{hero_subtitle}</div>}
                 {hero_title && <h1 className="animated-title">{hero_title}</h1>}
                 {hero_content && <p>{hero_content}</p>}
                

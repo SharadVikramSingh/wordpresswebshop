@@ -9,7 +9,7 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 
 const projects = [
   {
