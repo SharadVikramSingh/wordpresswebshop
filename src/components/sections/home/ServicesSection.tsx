@@ -1,4 +1,10 @@
+"use client";
+
+import { useDienstenPost } from "@/hooks/useDienstenPost";
+
 function ServicesSection(){
+      const { data, isPending, isError } = useDienstenPost();
+      console.log(data);
     return (
         <section className="our-service">
             <div className="wrapper">
