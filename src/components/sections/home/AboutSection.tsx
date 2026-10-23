@@ -3,7 +3,7 @@
 import { useHomePage } from "@/hooks/useHomePage";
 import Button from "../../ui/Button";
 
-import {getInternalPath} from "../../../../helper/helperFunction"
+import {getInternalPath} from "../../../helper/helperFunction"
 
 
 interface AboutTypes {
