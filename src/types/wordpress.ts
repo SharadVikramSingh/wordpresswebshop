@@ -116,3 +116,25 @@ export interface ProjectTypes {
     "wp:featuredmedia"?: ProjectImage[];
   };
 }
+
+
+export interface ProjectenPost {
+  id: number;
+  slug: string;
+  title: string;
+  excerpt: string;
+
+  image: {
+    id: number;
+    url: string;
+    cropped_url: string;
+    alt: string;
+  } | null;
+
+  categories: {
+    id: number;
+    name: string;
+    slug: string;
+  }[];
+}
+

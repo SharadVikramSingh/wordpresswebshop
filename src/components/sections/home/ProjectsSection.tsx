@@ -9,45 +9,38 @@ import type { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+
 import Button from "../../ui/Button";
-
-const projects = [
-  {
-    image: "/images/method-img.png",
-    category: ["WooCommerce", "Fashion"],
-    title: "Modekledinglijn — Amsterdam",
-    description:
-      "Een strakke, mobiel-vriendelijke webshop voor een Amsterdamse modezaak. Inclusief maatwerk productfilters en Mollie-betaalintegratie.",
-  },
-  {
-    image: "/images/method-img.png",
-    category: ["WooCommerce", "Fashion"],
-    title: "Modekledinglijn — Amsterdam",
-    description:
-      "Een strakke, mobiel-vriendelijke webshop voor een Amsterdamse modezaak. Inclusief maatwerk productfilters en Mollie-betaalintegratie.",
-  },
-  {
-    image: "/images/method-img.png",
-    category: ["WooCommerce", "Fashion"],
-    title: "Modekledinglijn — Amsterdam",
-    description:
-      "Een strakke, mobiel-vriendelijke webshop voor een Amsterdamse modezaak. Inclusief maatwerk productfilters en Mollie-betaalintegratie.",
-  },
-  {
-    image: "/images/method-img.png",
-    category: ["WooCommerce", "Fashion"],
-    title: "Modekledinglijn — Amsterdam",
-    description:
-      "Een strakke, mobiel-vriendelijke webshop voor een Amsterdamse modezaak. Inclusief maatwerk productfilters en Mollie-betaalintegratie.",
-  },
-];
-
-
+import { useSelectedProjecten } from "@/hooks/useSelectedProjecten";
+import { useHomePage } from "@/hooks/useHomePage";
 
 function ProjectsSection() {
+
+const { data: homePage } = useHomePage();
+const selectedProjectIds = homePage?.acf?.projecten_select ?? [];
+console.log("api id", selectedProjectIds)
+  const {
+    data: projectData,
+    isLoading,
+    isError,
+  } = useSelectedProjecten({ id: selectedProjectIds });
+
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   const paginationRef = useRef<HTMLDivElement>(null);
+
+
+  if (isLoading) {
+    return <p>Loading projects...</p>;
+  }
+
+  if (isError) {
+    return <p>Failed to load projects.</p>;
+  }
+
+  if (!projectData || projectData.length === 0) {
+    return <p>No projects found.</p>;
+  }
 
   return (
     <section className="method-sec">
@@ -66,7 +59,7 @@ function ProjectsSection() {
             modules={[Navigation, Pagination]}
             slidesPerView={1}
             spaceBetween={24}
-            loop={true}
+            loop={projectData.length > 1}
             navigation={{
               prevEl: prevRef.current,
               nextEl: nextRef.current,
@@ -76,20 +69,16 @@ function ProjectsSection() {
               clickable: true,
             }}
             onBeforeInit={(swiper: SwiperType) => {
-              if (typeof swiper.params.navigation !== "boolean") {
-                swiper.params.navigation = {
-                  ...swiper.params.navigation,
-                  prevEl: prevRef.current,
-                  nextEl: nextRef.current,
-                };
+              const navigation = swiper.params.navigation;
+              if (typeof navigation !== "boolean" && navigation) {
+                navigation.prevEl = prevRef.current;
+                navigation.nextEl = nextRef.current;
               }
 
-              if (typeof swiper.params.pagination !== "boolean") {
-                swiper.params.pagination = {
-                  ...swiper.params.pagination,
-                  el: paginationRef.current,
-                  clickable: true,
-                };
+              const pagination = swiper.params.pagination;
+              if (typeof pagination !== "boolean" && pagination) {
+                pagination.el = paginationRef.current;
+                pagination.clickable = true;
               }
             }}
             breakpoints={{
@@ -102,30 +91,43 @@ function ProjectsSection() {
             }}
             className="method-slider"
           >
-            {projects.map((project, index) => (
-              <SwiperSlide key={index}>
-                <div className="method-card">
-                  <div className="left-part">
-                    <img src={project.image} alt={project.title} />
-                  </div>
+            {projectData.map((project) => {
+           
 
-                  <div className="right-part">
-                    <div className="category">
-                      {project.category.map((category) => (
-                        <span className="cat" key={category}>
-                          {category}
-                        </span>
-                      ))}
+              return (
+                <SwiperSlide key={project.id}>
+                  <div className="method-card">
+                    <div className="left-part">
+       {project.image && (
+        <img
+          src={project.image.cropped_url || project.image.url}
+          alt={project.image.alt || project.title}
+          width={600}
+          height={400}
+        />
+      )}
+                    
                     </div>
 
-                    <h3>{project.title}</h3>
-                    <p>{project.description}</p>
+                    <div className="right-part">
+                      <h3
+                        dangerouslySetInnerHTML={{
+                          __html: project.title,
+                        }}
+                      />
 
-                      <Button link="#" />
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: project.excerpt,
+                        }}
+                      />
+
+                      <Button link={project.slug} />
+                    </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
 
           <div className="swiper-controls">
@@ -153,7 +155,10 @@ function ProjectsSection() {
                 </svg>
               </button>
 
-              <div ref={paginationRef} className="method-dots" />
+              <div
+                ref={paginationRef}
+                className="method-dots"
+              />
 
               <button
                 ref={nextRef}

@@ -1,15 +1,24 @@
 
+import type { HeroTypes } from "@/types/wordpress";
+import type { ProjectenPost } from "@/types/wordpress";
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
 export interface HomePage {
   id: number;
+
   title: {
     rendered: string;
   };
+
   content: {
     rendered: string;
   };
-  acf?: Record<string, unknown>;
+
+  acf?: Record<string, unknown> & {
+    projecten_select?: number[];
+  };
+
+  projecten_category?: number[];
 }
 
 
@@ -41,27 +50,26 @@ export async function getHomePage(): Promise<HomePage> {
 }
 
 
-
 export interface dienstenPost {
-  id: number;
-  date: string;
-  date_gmt: string;
-  slug: string;
-  link: string;
+    id: number;
+    date: string;
+    date_gmt: string;
+    slug: string;
+    link: string;
 
-  title: {
-    rendered: string;
-  };
+    title: {
+      rendered: string;
+    };
 
-  content: {
-    rendered: string;
-  };
+    content: {
+      rendered: string;
+    };
 
-  excerpt: {
-    rendered: string;
-  };
+    excerpt: {
+      rendered: string;
+    };
 
-  acf?: Record<string, unknown>;
+    acf?: Record<string, unknown>;
 }
 
 export async function getDienstenPost(): Promise<dienstenPost[]> {
@@ -89,3 +97,38 @@ export async function getDienstenPost(): Promise<dienstenPost[]> {
 
   return data;
 }
+
+
+
+
+export async function getProjectenPost(
+  ids: number[]
+): Promise<ProjectenPost[]> {
+ 
+
+  if (!API_URL) {
+    throw new Error("WordPress API URL is missing");
+  }
+
+  const url = `${API_URL.replace(/\/+$/, "")}/site/v1/projecten?include=${ids.join(",")}&_embed`;
+
+  console.log("Fetching projects from:", url);
+
+  const response = await fetch(url, {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+
+    console.error("WordPress API error:", response.status, errorText);
+
+    throw new Error(`WordPress API failed: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+
+
+

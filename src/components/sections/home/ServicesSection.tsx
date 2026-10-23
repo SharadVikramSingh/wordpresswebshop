@@ -3,15 +3,8 @@
 
 import { useHomePage } from "@/hooks/useHomePage";
 import { useDienstenPost } from "@/hooks/useDienstenPost";
-import type {
-  ServicesAcfTypes,
-  ServicesPostTypes,
-} from "@/types/wordpress";
-
-import {
-  getInternalPath,
-  decodeHtmlEntities,
-} from "../../../helper/helperFunction";
+import type { ServicesAcfTypes, ServicesPostTypes, } from "@/types/wordpress";
+import { getInternalPath, decodeHtmlEntities, } from "../../../../helper/helperFunction";
 
 function ServicesSection() {
   const {

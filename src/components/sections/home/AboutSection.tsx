@@ -4,7 +4,7 @@ import { useHomePage } from "@/hooks/useHomePage";
 import type { AboutTypes } from "@/types/wordpress";
 import Button from "../../ui/Button";
 
-import {getInternalPath} from "../../../helper/helperFunction"
+import {getInternalPath} from "../../../../helper/helperFunction"
 
 function AboutSection(){
    const { data, isPending, isError } = useHomePage();
