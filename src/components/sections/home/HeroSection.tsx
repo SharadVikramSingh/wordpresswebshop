@@ -40,8 +40,6 @@ interface HeroTypes {
  
 }
 
-
-
 function HeroSection(){
   const { data, isPending, isError } = useHomePage();
 
