@@ -1,3 +1,4 @@
+
 function getInternalPath(url: string): string {
   const siteUrl = "http://localhost/wordpresswebshop";
 
@@ -9,4 +10,14 @@ function getInternalPath(url: string): string {
   return url;
 }
 
-export {getInternalPath}
+function decodeHtmlEntities(text: string): string {
+  if (typeof document === "undefined") {
+    return text;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = text;
+  return textarea.value;
+}
+
+export { getInternalPath, decodeHtmlEntities };

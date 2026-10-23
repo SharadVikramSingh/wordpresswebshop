@@ -1,44 +1,10 @@
 
 "use client";
 import { useHomePage } from "@/hooks/useHomePage";
+import type { HeroTypes } from "@/types/wordpress";
 import Button from "../../ui/Button";
 
 import {getInternalPath} from "../../../helper/helperFunction"
-
-
-interface HeroTypes {
-  hero_subtitle: string;
-  hero_title: string;
-  hero_content: string;
-  hero_link_one: {
-    title: string;
-    url: string;
-    target: string;
-    } | null;
-
-  hero_link_two: {
-    title: string;
-    url: string;
-    target: string;
-  } | null;
-
-  hero_counter: {
-    count_number: number;
-    counter_title_prefix: string;
-    counter_title: string;
-  }[];
-   
-
-  hero_image: {
-    url: string;
-    alt: string;
-    sizes: {
-      hero_image : string;
-    } | null;
-  } | null;
-
- 
-}
 
 function HeroSection(){
   const { data, isPending, isError } = useHomePage();
@@ -65,6 +31,7 @@ function HeroSection(){
       <div className="wrapper">
         <div className="inner_part">
           <div className="left_part">
+
             <div className="text-box">
 
               {hero_subtitle && <div className="sub-title"><img src="/wordpress-logo.svg" alt="wordpress-logo" />{hero_subtitle}</div>}
@@ -72,6 +39,7 @@ function HeroSection(){
               {hero_content && <p>{hero_content}</p>}
               
             </div>
+
             <div className="btn-flx">
               {hero_link_one && <Button  link={getInternalPath(hero_link_one.url)} target={hero_link_one.target ? hero_link_one.target : "_self"} >{hero_link_one.title} </Button>}
               {hero_link_two && <Button  buttonClass="trp" link={getInternalPath(hero_link_two.url)} target={hero_link_two.target ? hero_link_two.target : "_self"} >{hero_link_two.title} </Button>}

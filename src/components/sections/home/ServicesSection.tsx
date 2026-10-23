@@ -1,133 +1,131 @@
+
 "use client";
 
+import { useHomePage } from "@/hooks/useHomePage";
 import { useDienstenPost } from "@/hooks/useDienstenPost";
+import type {
+  ServicesAcfTypes,
+  ServicesPostTypes,
+} from "@/types/wordpress";
 
-function ServicesSection(){
-      const { data, isPending, isError } = useDienstenPost();
-      console.log(data);
-    return (
-        <section className="our-service">
-            <div className="wrapper">
-                <div className="top-title">
-                    <div className="sub-title">Onze Diensten</div>
-                    <h2>Or jou doenWat wij vo</h2>
-                    <p>Van een eenvoudige webwinkel tot een complexe WooCommerce omgeving — wij regelen het van A tot Z.</p>
-                </div>
-            <div className="inner-card">
-                <div className="service-card">
-                    <div className="text-wrap">
-                        <h3>WordPress Webshop <br /> Bouwen</h3>
-                        <p>Wij bouwen jouw WooCommerce webshop volledig op maat. Professioneel ontwerp, razendsnelle
-                        laadtijden en makkelijk zelf te beheren — zonder technische kennis.
-                        </p>
-                    </div>
-                    <div className="btn-flx">
-                        <a href="#" className="btn_one trp">
-                        Meer over websites
-                        <span className="arrow">
-                            <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path className="arrow-fill" d="M0.898589 19.5366L19.5366 0.898561M19.5366 10.2176V0.898561H10.2176" stroke="#1A5C38" strokeWidth="1.79715" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
-                        </a>
-                    </div>
-                </div>
-                <div className="service-card">
-                    <div className="text-wrap">
-                        <h3>WordPress Website <br /> op Maat</h3>
-                        <p>Naast webshops bouwen wij ook krachtige WordPress websites. Perfect als basis voor jouw
-                        online aanwezigheid, gekoppeld aan jouw webshop of los als bedrijfswebsite.
-                        </p>
-                    </div>
-                    <div className="btn-flx">
-                        <a href="#" className="btn_one trp">
-                        Meer over websites
-                        <span className="arrow">
-                            <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path className="arrow-fill" d="M0.898589 19.5366L19.5366 0.898561M19.5366 10.2176V0.898561H10.2176" stroke="#1A5C38" strokeWidth="1.79715" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
-                        </a>
-                    </div>
-                </div>
-                <div className="service-card">
-                <div className="text-wrap">
-                    <h3>Beheer &amp; <br /> Onderhoud</h3>
-                    <p>Na oplevering laten wij je niet in de steek. Met ons onderhoudscontract zorg jij dat je
-                    webshop altijd up-to-date, snel en veilig blijft draaien.
-                    </p>
-                </div>
-                <div className="btn-flx">
-                    <a href="#" className="btn_one trp">
-                    Meer over websites
-                    <span className="arrow">
-                        <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path className="arrow-fill" d="M0.898589 19.5366L19.5366 0.898561M19.5366 10.2176V0.898561H10.2176" stroke="#1A5C38" strokeWidth="1.79715" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </span>
-                    </a>
-                </div>
-                </div>
-                <div className="service-card">
-                <div className="text-wrap">
-                    <h3>SEO &amp; <br />
-                    Vindbaarheid</h3>
-                    <p>Een mooie webshop heeft alleen waarde als mensen hem ook vinden. Wij optimaliseren jouw
-                    WordPress webshop technisch en inhoudelijk voor Google.
-                    </p>
-                </div>
-                <div className="btn-flx">
-                    <a href="#" className="btn_one trp">
-                    Meer over websites
-                    <span className="arrow">
-                        <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path className="arrow-fill" d="M0.898589 19.5366L19.5366 0.898561M19.5366 10.2176V0.898561H10.2176" stroke="#1A5C38" strokeWidth="1.79715" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </span>
-                    </a>
-                </div>
-                </div>
-                <div className="service-card">
-                <div className="text-wrap">
-                    <h3> Koppelingen &amp; <br /> Integraties</h3>
-                    <p>iDEAL, Mollie, boekhoudkoppelingen, CRM-systemen — wij koppelen jouw webshop aan de tools die
-                    jij al gebruikt, zodat alles soepel samenwerkt.
-                    </p>
-                </div>
-                <div className="btn-flx">
-                    <a href="#" className="btn_one trp">
-                    Meer over websites
-                    <span className="arrow">
-                        <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path className="arrow-fill" d="M0.898589 19.5366L19.5366 0.898561M19.5366 10.2176V0.898561H10.2176" stroke="#1A5C38" strokeWidth="1.79715" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </span>
-                    </a>
-                </div>
-                </div>
-                <div className="service-card">
-                <div className="text-wrap">
-                    <h3>Webshop <br />
-                    Migratie</h3>
-                    <p>Heb je al een webshop op een ander platform? Wij migreren jouw shop veilig en verliesvrij
-                    naar WordPress + WooCommerce, inclusief producten, klanten en bestellingen.
-                    </p>
-                </div>
-                <div className="btn-flx">
-                    <a href="#" className="btn_one trp">
-                    Meer over websites
-                    <span className="arrow">
-                        <svg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path className="arrow-fill" d="M0.898589 19.5366L19.5366 0.898561M19.5366 10.2176V0.898561H10.2176" stroke="#1A5C38" strokeWidth="1.79715" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </span>
-                    </a>
-                </div>
-                </div>
+import {
+  getInternalPath,
+  decodeHtmlEntities,
+} from "../../../helper/helperFunction";
+
+function ServicesSection() {
+  const {
+    data: servicesData,
+    isPending: servicesPending,
+    isError: servicesError,
+  } = useDienstenPost();
+
+  const {
+    data: homeData,
+    isPending: homePending,
+    isError: homeError,
+  } = useHomePage();
+
+  if (servicesPending || homePending) {
+    return <p>Loading services...</p>;
+  }
+
+  if (servicesError || homeError) {
+    return <p>Failed to load services.</p>;
+  }
+
+  if (
+    !servicesData ||
+    !Array.isArray(servicesData) ||
+    servicesData.length === 0 ||
+    !homeData
+  ) {
+    return null;
+  }
+
+  const {
+    services_sub_title,
+    services_title,
+    services_top_text,
+  } = (homeData.acf ?? {}) as ServicesAcfTypes;
+
+  return (
+    <section className="our-service">
+      <div className="wrapper">
+        <div className="top-title">
+          {services_sub_title && (
+            <div className="sub-title">
+              {decodeHtmlEntities(services_sub_title)}
             </div>
-            </div>
-        </section>
-    )
+          )}
+
+          {services_title && (
+            <h2>{decodeHtmlEntities(services_title)}</h2>
+          )}
+
+          {services_top_text && (
+            <p>{decodeHtmlEntities(services_top_text)}</p>
+          )}
+        </div>
+
+        <div className="inner-card">
+          {servicesData.map((service: ServicesPostTypes) => {
+            const title = service.title?.rendered;
+            const shortText = service.acf?.short_text;
+            const serviceLink =
+              service.acf?.link || service.link || "#";
+
+            return (
+              <div className="service-card" key={service.id}>
+                <div className="text-wrap">
+                  {title && (
+                    <h3>{decodeHtmlEntities(title)}</h3>
+                  )}
+
+                  {shortText && (
+                    <p>{decodeHtmlEntities(shortText)}</p>
+                  )}
+                </div>
+
+                <div className="btn-flx">
+                  <a
+                    href={
+                      serviceLink === "#"
+                        ? "#"
+                        : getInternalPath(serviceLink)
+                    }
+                    className="btn_one trp"
+                    target="_self"
+                  >
+                    Meer over webshops
+
+                    <span className="arrow">
+                      <svg
+                        width={21}
+                        height={21}
+                        viewBox="0 0 21 21"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          className="arrow-fill"
+                          d="M0.898589 19.5366L19.5366 0.898561M19.5366 10.2176V0.898561H10.2176"
+                          stroke="#1A5C38"
+                          strokeWidth="1.79715"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default ServicesSection;

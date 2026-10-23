@@ -1,31 +1,10 @@
 
 "use client";
 import { useHomePage } from "@/hooks/useHomePage";
+import type { AboutTypes } from "@/types/wordpress";
 import Button from "../../ui/Button";
 
 import {getInternalPath} from "../../../helper/helperFunction"
-
-
-interface AboutTypes {
-
-  about_image: {
-    url: string;
-    alt: string;
-    sizes: {
-      about_image : string;
-    } | null;
-  } | null;
-  about_sub_title: string;
-  about_title: string;
-  about_content: string;
-  about_link: {
-    title: string;
-    url: string;
-    target: string;
-  } | null;
- 
-}
-
 
 function AboutSection(){
    const { data, isPending, isError } = useHomePage();
