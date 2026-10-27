@@ -39,6 +39,11 @@ export interface HeroCounter {
   counter_title: string;
 }
 
+export interface MethodCard {
+  method_card_title: string;
+  method_card_text: string;
+}
+
 export interface HeroTypes {
   hero_subtitle: string;
   hero_title: string;
@@ -47,6 +52,12 @@ export interface HeroTypes {
   hero_link_two: WordPressButton | null;
   hero_counter: HeroCounter[];
   hero_image: HeroImage | null;
+  method_sub_title : string;
+  method_title : string;
+  method_top_text : string;
+  method_card: MethodCard[];
+  blog_title : string;
+  blog_link: WordPressButton | null;
 }
 
 /* =========================
@@ -117,7 +128,6 @@ export interface ProjectTypes {
   };
 }
 
-
 export interface ProjectenPost {
   id: number;
   slug: string;
@@ -137,4 +147,6 @@ export interface ProjectenPost {
     slug: string;
   }[];
 }
+
+
 

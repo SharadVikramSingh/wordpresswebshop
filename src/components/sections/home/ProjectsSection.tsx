@@ -18,7 +18,7 @@ function ProjectsSection() {
 
 const { data: homePage } = useHomePage();
 const selectedProjectIds = homePage?.acf?.projecten_select ?? [];
-console.log("api id", selectedProjectIds)
+// console.log("api id", selectedProjectIds)
   const {
     data: projectData,
     isLoading,

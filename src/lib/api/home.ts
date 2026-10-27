@@ -23,7 +23,7 @@ export interface HomePage {
 
 
 export async function getHomePage(): Promise<HomePage> {
-  console.log("API URL:", API_URL);
+  // console.log("API URL:", API_URL);
   
 
   if (!API_URL) {
@@ -36,11 +36,11 @@ export async function getHomePage(): Promise<HomePage> {
     cache: "no-store",
   });
 
-  console.log("Response status:", response.status);
+  // console.log("Response status:", response.status);
 
   const data = await response.json();
 
-  console.log("Full homepage response:", data);
+  // console.log("Full homepage response:", data);
 
   if (!response.ok) {
     throw new Error(`WordPress API error: ${response.status}`);
@@ -73,7 +73,7 @@ export interface dienstenPost {
 }
 
 export async function getDienstenPost(): Promise<dienstenPost[]> {
-  console.log("API URL:", API_URL);
+  // console.log("API URL:", API_URL);
 
   if (!API_URL) {
     throw new Error("WORDPRESS_API_URL is not configured");
@@ -85,7 +85,7 @@ export async function getDienstenPost(): Promise<dienstenPost[]> {
     cache: "no-store",
   });
 
-  console.log("Response status:", response.status);
+  // console.log("Response status:", response.status);
 
   if (!response.ok) {
     throw new Error(`WordPress API error: ${response.status}`);
@@ -93,7 +93,7 @@ export async function getDienstenPost(): Promise<dienstenPost[]> {
 
   const data: dienstenPost[] = await response.json();
 
-  console.log("Full diensten response:", data);
+  // console.log("Full diensten response:", data);
 
   return data;
 }
@@ -112,7 +112,7 @@ export async function getProjectenPost(
 
   const url = `${API_URL.replace(/\/+$/, "")}/site/v1/projecten?include=${ids.join(",")}&_embed`;
 
-  console.log("Fetching projects from:", url);
+  // console.log("Fetching projects from:", url);
 
   const response = await fetch(url, {
     cache: "no-store",
@@ -128,6 +128,54 @@ export async function getProjectenPost(
 
   return response.json();
 }
+
+
+
+export interface WordPressPost {
+  date: string | number | Date;
+  id: number;
+  slug: string;
+  title: string;
+  excerpt: string;
+  image: {
+    id: number;
+    url: string;
+    cropped_url: string | null;
+    alt: string;
+  } | null;
+  categories: {
+    id: number;
+    name: string;
+    slug: string;
+  }[];
+}
+
+interface GetPostsOptions {
+  perPage?: number;
+  include?: number[];
+}
+
+export async function getPosts({
+  perPage = 3,
+  include,
+}: GetPostsOptions = {}): Promise<WordPressPost[]> {
+  if (!API_URL) {
+    throw new Error("WORDPRESS_API_URL is not configured");
+  }
+  const url = new URL(`${API_URL}/site/v1/posts`);
+  url.searchParams.set("per_page", String(perPage));
+  if (include?.length) {
+    url.searchParams.set("include", include.join(","));
+  }
+  const response = await fetch(url.toString(), {
+    next: { revalidate: 60 },
+  });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch posts: ${response.status}`);
+  }
+  return response.json();
+}
+
 
 
 

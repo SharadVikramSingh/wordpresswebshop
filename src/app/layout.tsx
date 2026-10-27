@@ -18,8 +18,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <QueryProvider>
         <Header />
 
-        {children}
         <main>
+        {children}
 
         </main>
         <ReactQueryDevtools/>
