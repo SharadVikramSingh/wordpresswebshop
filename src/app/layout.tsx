@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import QueryProvider from "@/components/providers/QueryProvider";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
 
         </main>
+        <Footer />
         <ReactQueryDevtools/>
         </QueryProvider>
       </body>

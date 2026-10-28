@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: "http",
+  //       hostname: "localhost",
+  //       port: "",
+  //       pathname: "/wordpresswebshop/wp-content/uploads/**",
+  //     },
+  //   ],
+  // },
 };
 
 export default nextConfig;

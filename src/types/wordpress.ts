@@ -148,5 +148,48 @@ export interface ProjectenPost {
   }[];
 }
 
+/* =========================
+   Option Types
+========================= */
+
+export interface OptionType {
+  copyright_text: string;
+  facebook_url: string;
+  footer_left_text: string;
+  footer_logo: string;
+  instagram_url: string;
+  linkedin_url: string;
+  project_link: {
+    title: string;
+    url: string;
+    target: string;
+  };
+  site_logo: string;
+  title_bedrijf: string;
+  title_diensten: string;
+  title_volgons: string;
+}
 
 
+export interface MenuItem {
+  id: number;
+  title: string;
+  url: string;
+  slug: string;
+  parent: number;
+  children: MenuItem[];
+  menu_order: number;
+  target: string;
+}
+
+export interface MenuLocation {
+  label: string;
+  items: MenuItem[];
+}
+
+export interface MenusResponse {
+  primary: MenuLocation;
+  diensten: MenuLocation;
+  bedrijf: MenuLocation;
+  privacy: MenuLocation;
+}
